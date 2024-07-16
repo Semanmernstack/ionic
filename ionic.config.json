@@ -1,0 +1,7 @@
+{
+  "name": "ionicblog",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}
