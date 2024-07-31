@@ -1,0 +1,17 @@
+<ion-content [fullscreen]="true">
+  <ion-header>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-back-button defaultHref="/"></ion-back-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+  <div *ngIf="newsItem">
+    <h1>{{ newsItem.category }}</h1>
+    <h2>biden</h2>
+    <p>{{ newsItem.description }}</p>
+    <p>{{ newsItem.category }}</p>
+  </div>
+  
+
+</ion-content>

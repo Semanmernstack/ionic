@@ -1,0 +1,55 @@
+
+ion-content {
+    padding: 20px;
+    max-width: 1000px;
+  }
+  
+  
+  ion-item {
+    margin-bottom: 15px; 
+    flex-direction: flex;
+    gap: 2px;
+    
+  }
+  
+  
+  ion-input, ion-textarea {
+    width: 70%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  
+  ion-button {
+    width: 100%;
+    
+    align-items: center;
+    justify-items: center;
+    
+    --border-radius: 5px; 
+  }
+  
+  
+  ion-img {
+    max-width: 70%;
+    height: auto;
+    display: block;
+    margin: 10px 0; 
+  }
+  
+  
+  @media (max-width: 360px) {
+    ion-item {
+      margin-bottom: 10px;
+    }
+  
+    ion-button {
+      font-size: 14px; 
+    }
+  }
+  
+
+
+  
+ 

@@ -1,0 +1,31 @@
+/* Container for the news item */
+.news-item-container {
+    padding: 20px;
+    background-color: #f0f0f0;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin: 20px;
+  }
+  
+  /* Title styling */
+  .news-item-container h1 {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+  }
+  
+  /* Description styling */
+  .news-item-container p.description {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 15px;
+  }
+  
+  /* Category styling */
+  .news-item-container p.category {
+    font-size: 14px;
+    font-style: italic;
+    color: #999;
+  }
+  

@@ -1,0 +1,30 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      Edit News
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-item>
+    <ion-label>Title</ion-label>
+    <ion-input [(ngModel)]="newsItem.title"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>Description</ion-label>
+    <ion-textarea [(ngModel)]="newsItem.description"></ion-textarea>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>Category</ion-label>
+    <ion-select [(ngModel)]="newsItem.category">
+      <ion-select-option value="news">News</ion-select-option>
+      <ion-select-option value="entertainment">Entertainment</ion-select-option>
+      <ion-select-option value="sport">Sport</ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-button expand="full" (click)="EditNews()">Update News</ion-button>
+</ion-content>
