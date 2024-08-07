@@ -6,13 +6,14 @@ import { IonHeader, IonToolbar, IonTitle, IonCardHeader, IonCardTitle, IonCardCo
 import { ActivatedRoute } from '@angular/router';
 import { JsonService } from 'src/app/services/json.service';
 import { Subscription } from 'rxjs';
+import { v4 as uuidv4 } from 'uuid';
 
 @Component({
   selector: 'app-details',
   templateUrl: './details.page.html',
   styleUrls: ['./details.page.scss'],
   standalone: true,
-  imports: [IonContent, IonHeader, IonCardHeader, IonCardTitle, IonCardContent, IonTitle, IonToolbar, CommonModule, FormsModule, IonBackButton, IonHeader, RouterLink, RouterOutlet, IonToolbar, IonButtons, IonThumbnail, IonSearchbar, IonText, IonLabel, IonCard, IonThumbnail, IonCol, IonImg, IonRow, IonTitle, IonContent, CommonModule]
+  imports: [IonContent, IonHeader, IonCardHeader, IonCardTitle, IonCardContent, IonTitle, IonToolbar, FormsModule, IonBackButton, IonHeader, RouterLink, RouterOutlet, IonToolbar, IonButtons, IonThumbnail, IonSearchbar, IonText, IonLabel, IonCard, IonThumbnail, IonCol, IonImg, IonRow, IonTitle, IonContent, CommonModule]
 })
 export class DetailsPage implements OnInit {
   itemId: any;
@@ -21,14 +22,24 @@ export class DetailsPage implements OnInit {
   
 
   constructor(private route: ActivatedRoute,  private jsonService: JsonService) { }
-  newsItem: any 
+  newsItem: any = {
+    
+    id: uuidv4(),
+    title: '',
+    description: '',
+    category: '',
+    image: ''
+  };
+
+
+ 
   errorMessage: string = '';
 
   ngOnInit(): void {
     const postId = this.route.snapshot.paramMap.get('itemId');
     console.log(postId)
     if (postId) {
-      this.jsonService.getNewsItem(+postId).subscribe(
+      this.jsonService.getNewsItem(postId).subscribe(
         (response: any) => {
           this.newsItem= response;
           console.log('News item:', this.newsItem);

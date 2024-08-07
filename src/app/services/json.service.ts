@@ -36,6 +36,10 @@ export interface BlogPost {
 export class JsonService {
   private apiUrl = 'https://api.jsonbin.io/v3/b/66a9e2acad19ca34f88f507a'
   private apiKey = '$2a$10$O1O6Mo5Uho3q4ikoe9CWguBXU6YJ6cJ/KiEJSekY7.LxB1BWqL29a'
+  private cloudName = 'dfmc1qrni';
+  private uploadPreset = 'j1okyxop'; // Set this in Cloudinary settings
+  private cloudinaryUrl = `https://api.cloudinary.com/v1_1/${this.cloudName}/upload`;
+
   
   
   private headers= new HttpHeaders({
@@ -113,6 +117,17 @@ export class JsonService {
     );
     return from(promise);
   }
+
+  uploadImage(file: File): Observable<any> {
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('upload_preset', this.uploadPreset);
+
+    return this.http.post(this.cloudinaryUrl, formData);
+    console.log(this.cloudinaryUrl)
+  }
+
+  
 
 }
 

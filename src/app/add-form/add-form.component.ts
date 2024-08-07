@@ -36,13 +36,33 @@ export class AddFormComponent  implements OnInit{
     
    
   }
-  ;
+  selectedFile: File | null = null;
   uploadPercent: number | undefined;
-  downloadURL: string | undefined;
+  uploadUrl: string | undefined;
+
+
+  onFileSelected(event: any): void {
+    const file = event.target.files[0];
+    if (file) {
+      this.selectedFile = file;
+    }
+  }
+ 
+  
   
 
   
-  takePicture(){}
+  takePicture(){
+
+  }
+  uploadFile(): void {
+    if (this.selectedFile) {
+      this.jsonService.uploadImage(this.selectedFile).subscribe((response) => {
+        this.newsItem.image = response.secure_url;
+        console.log('File available at', this.newsItem.image);
+      });
+    }
+  }
    newsItem: any = {
     
     id: uuidv4(),
@@ -100,6 +120,7 @@ export class AddFormComponent  implements OnInit{
       category: '',
       image: ''
     };
+    this.selectedFile = null;
   }
   createD(): void {
     const todoData = {

@@ -1,4 +1,4 @@
-import { Component, NO_ERRORS_SCHEMA, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, NO_ERRORS_SCHEMA, NgZone, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { JsonService } from '../services/json.service';
 import { Router } from '@angular/router';
@@ -27,20 +27,21 @@ export class EditComponent  implements OnInit {
     image: ''
   };
 
-  constructor(private route: ActivatedRoute,  private navCtrl: NavController,  private jsonService: JsonService, private router: Router) { }
+  constructor(private route: ActivatedRoute, private cdr: ChangeDetectorRef,  private navCtrl: NavController,  private jsonService: JsonService, private router: Router,  private ngZone: NgZone) { }
   ngOnInit() {
     const itemId = this.route.snapshot.paramMap.get('id');
     if (itemId) {
       this.jsonService.getNewsItem(itemId).subscribe(
         (data) => {
           this.newsItem = data; // Assign fetched data to newsItem including id
+          this.cdr.detectChanges()
         },
         (error) => {
           console.error('Error fetching news item:', error);
         }
       );
     } else {
-      console.error('itemId is undefined');
+      console.error('itemId is undefined')
     }
   }
 
@@ -49,9 +50,14 @@ export class EditComponent  implements OnInit {
     if (this.newsItem.id) {
       this.jsonService.updateNews(this.newsItem ).subscribe(
         (data: any) => {
-          this.newsItem = data;
+          this.ngZone.run(() => {
+          this.newsItem = {...data};
           console.log('Successfully updated news item:', data);
+          this.cdr.detectChanges();
+          })
+          
           this.navCtrl.navigateRoot('/'); // Navigate back to home or list page after update
+          
         },
         (error) => {
           console.error('Error updating news item:', error);

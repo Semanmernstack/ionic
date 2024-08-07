@@ -1,20 +1,24 @@
 <ion-content>
   <form (ngSubmit)="createBlog()">
+    <ion-item>
+      <input type="file" (change)="onFileSelected($event)" />
+    </ion-item>
+
+    <ion-item>
+      <ion-button (click)="uploadFile()">Upload Image</ion-button>
+      
+    </ion-item>
+    
     
     <ion-item>
       <ion-label>Category</ion-label>
-      <ion-select [(ngModel)]="newsItem.category"  name="category">
+      <ion-select [(ngModel)]="newsItem.category">
         <ion-select-option value="news">News</ion-select-option>
         <ion-select-option value="entertainment">Entertainment</ion-select-option>
         <ion-select-option value="sport">Sport</ion-select-option>
       </ion-select>
     </ion-item>
-    <item>
-      <ion-button (click)="takePicture()">Take Picture</ion-button>
-
-      <ion-img [src]=""></ion-img>
-
-    </item>
+    
 
   <ion-item>
     <ion-label>Title</ion-label>

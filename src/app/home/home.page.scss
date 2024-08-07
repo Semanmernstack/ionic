@@ -1,55 +1,115 @@
+/* General Styles */
 ion-header {
-  justify-items: center;
-  background-color: #ff0004;
-  align-items: center;
-
+  display: flex;
+  justify-content: center; /* Center header content horizontally */
+  align-items: center;     /* Center header content vertically */
+  background-color: #ff0004; /* Red background color */
+  padding: 8px;            /* Padding inside the header */
 }
+
 ion-content {
-  padding: 4px;
-  background-color: whitesmoke;
+  padding: 8px;            /* Increased padding for better spacing */
+  background-color: whitesmoke; /* Light gray background color */
+}
+
+ion-item {
+  color: red;              /* Red text color */
+  font-weight: 800;       /* Bold text */
+  font-style: italic;     /* Italic text */
+  cursor: pointer;        /* Pointer cursor on hover */
+  margin: 4px 0;          /* Margin around items */
+}
+
+/* Card Styles */
+ion-card {
+  height: 300px;          /* Fixed height for the card */
+  padding: 10px;         /* Padding inside the card */
+  margin: 8px 0;         /* Margin around the card */
+  border-radius: 8px;   /* Rounded corners */
+  border: 1px solid gray; /* Gray border */
+  background-color: whitesmoke; /* Light gray background color */
+  overflow: hidden;      /* Ensures rounded corners are visible */
+}
+
+ion-label, p {
+  margin-top: 5px;       /* Margin at the top of label and paragraphs */
+}
+
+ion-text {
+  color: #ff0004;        /* Red color for text */
+  display: inline-block;
+  max-width: 80%;        /* Maximum width of text */
+  white-space: nowrap;   /* Prevent text from wrapping */
+  overflow: hidden;      /* Hide overflow text */
+  text-overflow: ellipsis; /* Ellipsis for overflow text */
+  font-size: smaller;    /* Smaller font size */
+}
+
+/* Thumbnail and Image Styles */
+ion-thumbnail {
+  display: block;
+  width: 100%;            /* Full width */
+  height: auto;          /* Auto height to maintain aspect ratio */
+}
+
+ion-img {
+  width: 100%;            /* Full width */
+  height: auto;          /* Auto height to maintain aspect ratio */
+  border-top-left-radius: 8px; /* Rounded corners */
+  border-top-right-radius: 8px; /* Rounded corners */
+}
+
+/* Media Queries for Responsiveness */
+
+/* For devices smaller than 768px */
+@media (max-width: 767px) {
+  ion-card {
+    height: auto;         /* Auto height for smaller screens */
+    padding: 8px;         /* Reduced padding */
+  }
+
+  ion-thumbnail, ion-img {
+    width: 100%;          /* Full width */
+    height: auto;         /* Auto height */
+  }
+
   ion-item {
-    
-    color: red;
-    font-weight: 800;
-    font-style: italic;
-    cursor: pointer;
-    
+    font-size: 14px;      /* Smaller font size */
+    margin: 2px 0;        /* Reduced margin */
+  }
+
+  ion-text {
+    font-size: 14px;      /* Smaller font size */
+    max-width: 100%;      /* Full width */
   }
 }
-ion-card {
-  height: 200px;
-  padding: 10px;
-  margin: 2px;
-  border-radius: 8px;
-  border: 1px solid gray;
-  background-color: whitesmoke;
-}
-ion-label, p {
-  margin-top: 5px;
+
+/* For devices larger than 768px and up to 1024px */
+@media (min-width: 768px) and (max-width: 1024px) {
+  ion-card {
+    height: 250px;        /* Slightly smaller height for medium screens */
+  }
+
+  ion-item {
+    font-size: 16px;      /* Adjust font size */
+  }
+
   ion-text {
-    color: #ff0004;
-    display: inline-block; 
-    max-width: 80%; 
-    width: auto; 
-    width: 350px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    margin-top: 4px;
-    font-size: smaller;
-    
-    
-  } 
-
+    font-size: 16px;      /* Adjust font size */
+  }
 }
 
-ion-thumnbnail {
-  width: 100%;
-  height: 120px;
-  margin-bottom: 4px;
-  ion-img {
-    height: 100%;
-    width: 100%;
-    border-radius: 8px;
+/* For devices larger than 1024px */
+@media (min-width: 1024px) {
+  ion-card {
+    height: 300px;        /* Default height for larger screens */
+  }
+
+  ion-item {
+    font-size: 18px;      /* Larger font size for larger screens */
+  }
+
+  ion-text {
+    font-size: 18px;      /* Larger font size for larger screens */
   }
 }
