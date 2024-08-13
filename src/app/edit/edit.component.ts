@@ -34,7 +34,7 @@ export class EditComponent  implements OnInit {
       this.jsonService.getNewsItem(itemId).subscribe(
         (data) => {
           this.newsItem = data; // Assign fetched data to newsItem including id
-          this.cdr.detectChanges()
+         
         },
         (error) => {
           console.error('Error fetching news item:', error);
@@ -50,11 +50,11 @@ export class EditComponent  implements OnInit {
     if (this.newsItem.id) {
       this.jsonService.updateNews(this.newsItem ).subscribe(
         (data: any) => {
-          this.ngZone.run(() => {
-          this.newsItem = {...data};
+         
+         
           console.log('Successfully updated news item:', data);
-          this.cdr.detectChanges();
-          })
+          
+          
           
           this.navCtrl.navigateRoot('/'); // Navigate back to home or list page after update
           

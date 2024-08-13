@@ -1,4 +1,4 @@
-import { Component,  OnInit, inject } from '@angular/core';
+import { ChangeDetectorRef, Component,  OnInit, inject } from '@angular/core';
 import { CommonModule, NgFor } from '@angular/common';
 import { RouterLink, RouterOutlet } from '@angular/router';
 
@@ -15,12 +15,13 @@ import { JsonService } from '../services/json.service';
 export class HomePage implements OnInit {
   
   
-  constructor(private jsonService: JsonService) {}
+  constructor(private jsonService: JsonService, private cdr: ChangeDetectorRef) {}
   metaData: any;
   items: any[] = []
   allItems: any[] = []
   newsItem: any[] = [] 
   newsId: any
+  blogPosts: any[] = [];
   trackItemById(index: any, item: any): any {
     return item.id; // Assuming each item in newsItems has a unique 'id' property
   }
@@ -33,12 +34,20 @@ export class HomePage implements OnInit {
     this.homeList()
   }
   homeList() {
-      this.jsonService.getNews().subscribe((data: any) => {
+    this.jsonService.getNews().subscribe((data: any) => {
+      console.log('Raw data received:', data);
+      this.newsItem = data?.record?.record?.blog || []; // Adjust this line based on actual structure
+      console.log('Blog array:', this.newsItem);
+    }, error => {
+      console.error('Error fetching news:', error);
+    });
       
-      this.newsItem = data?.record?.users;
-      console.log('getNews data:', data); 
-        console.log('First item users:', this.newsItem);
-      })
+  }
+  loadBlogPosts() {
+    this.jsonService.getBlogPosts().subscribe(posts => {
+      this.blogPosts = posts;
+      console.log('Blog posts:', this.blogPosts);
+    });
   }
 
 

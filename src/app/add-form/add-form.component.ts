@@ -23,8 +23,15 @@ import { JsonService } from '../services/json.service';
 })
 export class AddFormComponent  implements OnInit{
   
-  
- 
+  category = ['News', 'Entertainment', 'Sport'];
+  newsItem: any = {
+    
+    id: uuidv4(),
+    title: '',
+    description: '',
+    category: this.category[2],
+    image: ''
+  };
   
   constructor(private router: Router, private navCtrl: NavController, private jsonService: JsonService) { }
   text: any = ''
@@ -48,7 +55,30 @@ export class AddFormComponent  implements OnInit{
     }
   }
  
+   
+  createBlog() {
+    
+
+    this.jsonService.getNews().subscribe((data: any) => {
+      const currentPosts = data?.record?.blog || [];
+      currentPosts.push(this.newsItem);
+
+      this.jsonService.createNews(currentPosts).subscribe(
+        (updateResponse: any) => {
+          console.log('Post added successfully', updateResponse);
+          this.router.navigate(['/']); // Navigate back to homepage
+          
+        },
+        (error) => {
+          console.error('Error updating posts:', error);
+        }
+      );
+    });
   
+  } 
+  
+  
+
   
 
   
@@ -63,52 +93,16 @@ export class AddFormComponent  implements OnInit{
       });
     }
   }
-   newsItem: any = {
-    
-    id: uuidv4(),
-    title: "",
-    description:"",
-    category:"",
-    image: ""
-  };
+   
 
-  createBlog () {
-    
-    
+  
 
-   this.jsonService.createNews( { users: [this.newsItem]  }).subscribe((data: any) => {
-    console.log('Post added successfully', data);
-      
-     
-      if (data  && data.record) {
-        this.newsItem = data?.record
-        
-        console.log('New post:', data.record);
-
-        this.loadNewsItems(); 
-        
-        this.router.navigate(['/']);
-      } else {
-        console.error('Unexpected response format:', data);
-       
-      }
-      
-      
-      this.resetForm();
-    
-    })
-  }
-
-  loadNewsItems() {
-    this.jsonService.getNews().subscribe(
-      (newsItems: any[]) => {
-        this.newsItem = newsItems; // Assuming this updates the list of items in the view
-      },
-      (error) => {
-        console.error('Error fetching news items:', error);
-      }
-    );
-  }
+  //loadNewsItems() {
+    //this.jsonService.getNews().subscribe((data: any) => {
+     // const currentPosts = data?.record?.blog || [];
+     // currentPosts.push(this.newsItem);
+  //}
+//}
 
   resetForm() {
    

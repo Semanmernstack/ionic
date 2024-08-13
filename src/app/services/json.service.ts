@@ -34,7 +34,7 @@ export interface BlogPost {
   providedIn: 'root'
 })
 export class JsonService {
-  private apiUrl = 'https://api.jsonbin.io/v3/b/66a9e2acad19ca34f88f507a'
+  private apiUrl = 'https://api.jsonbin.io/v3/b/66bb25d2e41b4d34e41fa83b'
   private apiKey = '$2a$10$O1O6Mo5Uho3q4ikoe9CWguBXU6YJ6cJ/KiEJSekY7.LxB1BWqL29a'
   private cloudName = 'dfmc1qrni';
   private uploadPreset = 'j1okyxop'; // Set this in Cloudinary settings
@@ -47,16 +47,19 @@ export class JsonService {
       'X-Master-Key': this.apiKey
     
     })
+  private blogCollection = collection(this.firestore, 'blogs');
   constructor(private http: HttpClient, private firestore: Firestore) { }
  
   todosCollection = collection(this.firestore, 'blog');
-
- 
+  
   
   getNews(): Observable<any[]> {
-    return this.http.get<any[]>(this.apiUrl + '/latest', {headers: this.headers})
+    return this.http.get<any[]>(this.apiUrl)
      
   }
+  
+  
+  
  
 
   
@@ -66,7 +69,7 @@ export class JsonService {
     
   //}
   createNews(newsItem: any): Observable<any> {
-    return this.http.put(this.apiUrl, newsItem, {headers: this.headers})
+    return this.http.put(this.apiUrl, { record: { blog: newsItem } }, {headers: this.headers})
       .pipe(
         catchError(error => {
           console.error('Error creating news:', error);
@@ -78,6 +81,7 @@ export class JsonService {
   
   updateNews(newsItem: any): Observable<any> {
     const itemId = newsItem.id;
+    console.log(itemId)
     if (!itemId) {
       console.error('updateNews: itemId is undefined or null');
       return throwError('itemId is undefined or null');
@@ -96,10 +100,12 @@ export class JsonService {
   }
   
   getNewsItem(id: any): Observable<any> {
-    return this.http.get<{ record: { users: any[] } }>(`${this.apiUrl}/latest`).pipe(
+    return this.http.get<{ record: { record: { blog: any[] } } }>(`${this.apiUrl}`).pipe(
       map(response => {
         console.log('API Response:', response);
-        const user = response.record.users.find((post: any) => post.id == id);
+        const blog = response?.record?.record?.blog || [];
+        console.log('Found blog:', blog);
+        const user = blog.find((post: any) => post.id == id);
         console.log('Found User:', user);
         return user ? user : { id: id, name: 'User Not Found' }; 
       }),
@@ -116,6 +122,9 @@ export class JsonService {
       (response) => response.id
     );
     return from(promise);
+  }
+  getBlogPosts(): Observable<any[]> {
+    return collectionData(this.blogCollection, { idField: 'id' }) as Observable<any[]>;
   }
 
   uploadImage(file: File): Observable<any> {
